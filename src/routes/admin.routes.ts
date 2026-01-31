@@ -1,13 +1,13 @@
 import { Router } from "express";
-import { createProduct } from "../controllers/admin.controller";
+import { addProduct } from "../controllers/admin.controller";
 
 const router = Router();
 
 /**
  * @swagger
- * /admin/createProduct:
+ * /admin/addProduct:
  *   post:
- *     tags: [Admin - Product]
+ *     tags: [Admin]
  *     summary: Create a new product
  *     requestBody:
  *       required: true
@@ -42,7 +42,6 @@ const router = Router();
  *       500:
  *         description: Internal server error
  */
-
-router.post("/createProduct", createProduct);
+router.post("/addProduct", addProduct);
 
 export default router;

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import ProductModal from "../models/product.model";
 
-export const createProduct = async (req: Request, res: Response) => {
+export const addProduct = async (req: Request, res: Response) => {
   try {
     const { name, image, price, rating, description } = req.body;
 
@@ -20,7 +20,7 @@ export const createProduct = async (req: Request, res: Response) => {
       });
     }
 
-    const newUser = await ProductModal.create({
+    const newProduct = await ProductModal.create({
       name,
       image,
       price,
@@ -30,7 +30,7 @@ export const createProduct = async (req: Request, res: Response) => {
 
     return res.status(201).json({
       success: true,
-      message: "User registered successfully",
+      message: "Product added successfully",
       data: {
         name,
         image,

@@ -6,7 +6,6 @@ export const getProduct = async (req: Request, res: Response) => {
   try {
     const productId = req.params.id;
     const token = req.headers.authorization?.split(" ")[1];
-    console.log("qqqqq", productId, token);
 
     let decoded: any;
     try {
@@ -46,4 +45,30 @@ export const getProduct = async (req: Request, res: Response) => {
       message: "Internal server error",
     });
   }
+};
+
+export const updateProduct = async (req: Request, res: Response) => {
+  try {
+    const { name, image, price, rating, description } = req.body;
+    const token = req.headers.authorization?.split(" ")[1];
+
+    let decoded: any;
+
+    try {
+      if (!token) throw new Error("missing");
+      decoded = jwt.verify(token, process.env.JWT_SECRET!);
+    } catch (err) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized or invalid token",
+      });
+    }
+
+    if (!name || !image || !price || !rating || !description) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required",
+      });
+    }
+  } catch (error) {}
 };
