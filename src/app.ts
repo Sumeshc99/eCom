@@ -8,17 +8,24 @@ dotenv.config();
 
 const app = express();
 
+const allowedOrigins = ["http://localhost:5173", "https://yourapp.netlify.app"];
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173", // local frontend
-      //   "https://your-frontend.app", // later: Vercel/Netlify URL
-    ],
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-    allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
+
+/* ✅ Handle preflight explicitly (IMPORTANT) */
+app.options("*", cors());
+
 app.use(express.json());
 
 setupSwagger(app);
