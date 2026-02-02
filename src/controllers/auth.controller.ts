@@ -46,7 +46,7 @@ export const signUp = async (req: Request, res: Response) => {
   } catch (error: any) {
     return res.status(500).json({
       success: false,
-      message: "Internal server error",
+      message: error,
     });
   }
 };
@@ -103,7 +103,7 @@ export const signIn = async (req: Request, res: Response) => {
   } catch (error: any) {
     return res.status(500).json({
       success: false,
-      message: "Internal server error",
+      message: error,
     });
   }
 };
@@ -210,7 +210,7 @@ export const verifyOtp = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "Internal server error",
+      message: error,
     });
   }
 };
