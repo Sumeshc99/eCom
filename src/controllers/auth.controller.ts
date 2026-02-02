@@ -86,7 +86,7 @@ export const signIn = async (req: Request, res: Response) => {
         role: user.role,
       },
       process.env.JWT_SECRET as string,
-      { expiresIn: "7d" }
+      { expiresIn: "7d" },
     );
 
     return res.status(200).json({
@@ -152,7 +152,7 @@ export const signInWithPhone = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "Internal server error",
+      message: error,
     });
   }
 };
@@ -194,7 +194,7 @@ export const verifyOtp = async (req: Request, res: Response) => {
     const token = jwt.sign(
       { id: user._id, phone: user.phone, role: user.role },
       process.env.JWT_SECRET!,
-      { expiresIn: "7d" }
+      { expiresIn: "7d" },
     );
 
     return res.status(200).json({
